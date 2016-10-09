@@ -3,9 +3,6 @@
 
 int main(void)
 {
-
-	int i=0;
-
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 
 	GPIO_InitTypeDef gpioInitStruct;
@@ -18,9 +15,19 @@ int main(void)
 
 	GPIO_SetBits(GPIOA,GPIO_Pin_5);
 
+	gpioInitStruct.GPIO_Mode=GPIO_Mode_IN;
+	gpioInitStruct.GPIO_PuPd=GPIO_PuPd_UP;
+	gpioInitStruct.GPIO_Pin=GPIO_Pin_13;
+	gpioInitStruct.GPIO_Speed=GPIO_Speed_40MHz;
+
+	GPIO_Init(GPIOC, &gpioInitStruct);
+
+	uint8_t buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
     while (1)
     {
-    	i++;
+    	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
     }
     return 0;
 }
