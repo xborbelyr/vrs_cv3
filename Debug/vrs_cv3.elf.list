@@ -21,23 +21,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   8 .ARM.attributes 00000029  00000000  00000000  00010684  2**0
                   CONTENTS, READONLY
-  9 .debug_info   00001b80  00000000  00000000  000106ad  2**0
+  9 .debug_info   00001b72  00000000  00000000  000106ad  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_abbrev 000006ac  00000000  00000000  0001222d  2**0
+ 10 .debug_abbrev 000006ac  00000000  00000000  0001221f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_aranges 000002b8  00000000  00000000  000128e0  2**3
+ 11 .debug_aranges 000002b8  00000000  00000000  000128d0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000260  00000000  00000000  00012b98  2**3
+ 12 .debug_ranges 00000260  00000000  00000000  00012b88  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   00000ef8  00000000  00000000  00012df8  2**0
+ 13 .debug_line   00000ef6  00000000  00000000  00012de8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00000c1a  00000000  00000000  00013cf0  2**0
+ 14 .debug_str    00000c13  00000000  00000000  00013cde  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .comment      0000007e  00000000  00000000  0001490a  2**0
+ 15 .comment      0000007e  00000000  00000000  000148f1  2**0
                   CONTENTS, READONLY
- 16 .debug_frame  00000a48  00000000  00000000  00014988  2**2
+ 16 .debug_frame  00000a48  00000000  00000000  00014970  2**2
                   CONTENTS, READONLY, DEBUGGING
- 17 .stabstr      0000003f  00000000  00000000  000153d0  2**0
+ 17 .stabstr      0000003f  00000000  00000000  000153b8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -444,91 +444,88 @@ int main(void)
  8000354:	b580      	push	{r7, lr}
  8000356:	b084      	sub	sp, #16
  8000358:	af00      	add	r7, sp, #0
-	int button=0;
- 800035a:	2300      	movs	r3, #0
- 800035c:	60fb      	str	r3, [r7, #12]
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
- 800035e:	2101      	movs	r1, #1
- 8000360:	2001      	movs	r0, #1
- 8000362:	f7ff ffd9 	bl	8000318 <RCC_AHBPeriphClockCmd>
+ 800035a:	2101      	movs	r1, #1
+ 800035c:	2001      	movs	r0, #1
+ 800035e:	f7ff ffdb 	bl	8000318 <RCC_AHBPeriphClockCmd>
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC,ENABLE);
+ 8000362:	2101      	movs	r1, #1
+ 8000364:	2004      	movs	r0, #4
+ 8000366:	f7ff ffd7 	bl	8000318 <RCC_AHBPeriphClockCmd>
 
 	GPIO_InitTypeDef gpioInitStruct;
 	gpioInitStruct.GPIO_Mode=GPIO_Mode_OUT;
- 8000366:	2301      	movs	r3, #1
- 8000368:	713b      	strb	r3, [r7, #4]
+ 800036a:	2301      	movs	r3, #1
+ 800036c:	723b      	strb	r3, [r7, #8]
 	gpioInitStruct.GPIO_OType=GPIO_OType_PP;
- 800036a:	2300      	movs	r3, #0
- 800036c:	71bb      	strb	r3, [r7, #6]
+ 800036e:	2300      	movs	r3, #0
+ 8000370:	72bb      	strb	r3, [r7, #10]
 	gpioInitStruct.GPIO_Pin=GPIO_Pin_5;
- 800036e:	2320      	movs	r3, #32
- 8000370:	603b      	str	r3, [r7, #0]
-	gpioInitStruct.GPIO_Speed=GPIO_Speed_40MHz;
- 8000372:	2303      	movs	r3, #3
- 8000374:	717b      	strb	r3, [r7, #5]
+ 8000372:	2320      	movs	r3, #32
+ 8000374:	607b      	str	r3, [r7, #4]
+	gpioInitStruct.GPIO_Speed=GPIO_Speed_400KHz;
+ 8000376:	2300      	movs	r3, #0
+ 8000378:	727b      	strb	r3, [r7, #9]
 
 	GPIO_Init(GPIOA, &gpioInitStruct);
- 8000376:	463b      	mov	r3, r7
- 8000378:	4619      	mov	r1, r3
- 800037a:	4817      	ldr	r0, [pc, #92]	; (80003d8 <main+0x84>)
- 800037c:	f7ff fefe 	bl	800017c <GPIO_Init>
+ 800037a:	1d3b      	adds	r3, r7, #4
+ 800037c:	4619      	mov	r1, r3
+ 800037e:	4816      	ldr	r0, [pc, #88]	; (80003d8 <main+0x84>)
+ 8000380:	f7ff fefc 	bl	800017c <GPIO_Init>
 
 	gpioInitStruct.GPIO_Mode=GPIO_Mode_IN;
- 8000380:	2300      	movs	r3, #0
- 8000382:	713b      	strb	r3, [r7, #4]
+ 8000384:	2300      	movs	r3, #0
+ 8000386:	723b      	strb	r3, [r7, #8]
 	gpioInitStruct.GPIO_PuPd=GPIO_PuPd_UP;
- 8000384:	2301      	movs	r3, #1
- 8000386:	71fb      	strb	r3, [r7, #7]
+ 8000388:	2301      	movs	r3, #1
+ 800038a:	72fb      	strb	r3, [r7, #11]
 	gpioInitStruct.GPIO_Pin=GPIO_Pin_13;
- 8000388:	f44f 5300 	mov.w	r3, #8192	; 0x2000
- 800038c:	603b      	str	r3, [r7, #0]
+ 800038c:	f44f 5300 	mov.w	r3, #8192	; 0x2000
+ 8000390:	607b      	str	r3, [r7, #4]
 	gpioInitStruct.GPIO_Speed=GPIO_Speed_40MHz;
- 800038e:	2303      	movs	r3, #3
- 8000390:	717b      	strb	r3, [r7, #5]
+ 8000392:	2303      	movs	r3, #3
+ 8000394:	727b      	strb	r3, [r7, #9]
 
 	GPIO_Init(GPIOC, &gpioInitStruct);
- 8000392:	463b      	mov	r3, r7
- 8000394:	4619      	mov	r1, r3
- 8000396:	4811      	ldr	r0, [pc, #68]	; (80003dc <main+0x88>)
- 8000398:	f7ff fef0 	bl	800017c <GPIO_Init>
+ 8000396:	1d3b      	adds	r3, r7, #4
+ 8000398:	4619      	mov	r1, r3
+ 800039a:	4810      	ldr	r0, [pc, #64]	; (80003dc <main+0x88>)
+ 800039c:	f7ff feee 	bl	800017c <GPIO_Init>
 
 	uint8_t buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
- 800039c:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 80003a0:	480e      	ldr	r0, [pc, #56]	; (80003dc <main+0x88>)
- 80003a2:	f7ff ff81 	bl	80002a8 <GPIO_ReadInputDataBit>
- 80003a6:	4603      	mov	r3, r0
- 80003a8:	72fb      	strb	r3, [r7, #11]
+ 80003a0:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 80003a4:	480d      	ldr	r0, [pc, #52]	; (80003dc <main+0x88>)
+ 80003a6:	f7ff ff7f 	bl	80002a8 <GPIO_ReadInputDataBit>
+ 80003aa:	4603      	mov	r3, r0
+ 80003ac:	73fb      	strb	r3, [r7, #15]
 
     while (1)
     {
     	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
- 80003aa:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 80003ae:	480b      	ldr	r0, [pc, #44]	; (80003dc <main+0x88>)
- 80003b0:	f7ff ff7a 	bl	80002a8 <GPIO_ReadInputDataBit>
- 80003b4:	4603      	mov	r3, r0
- 80003b6:	72fb      	strb	r3, [r7, #11]
+ 80003ae:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 80003b2:	480a      	ldr	r0, [pc, #40]	; (80003dc <main+0x88>)
+ 80003b4:	f7ff ff78 	bl	80002a8 <GPIO_ReadInputDataBit>
+ 80003b8:	4603      	mov	r3, r0
+ 80003ba:	73fb      	strb	r3, [r7, #15]
 
     	if(buttonState==0){
- 80003b8:	7afb      	ldrb	r3, [r7, #11]
- 80003ba:	2b00      	cmp	r3, #0
- 80003bc:	d104      	bne.n	80003c8 <main+0x74>
+ 80003bc:	7bfb      	ldrb	r3, [r7, #15]
+ 80003be:	2b00      	cmp	r3, #0
+ 80003c0:	d104      	bne.n	80003cc <main+0x78>
     	    GPIO_SetBits(GPIOA,GPIO_Pin_5);
- 80003be:	2120      	movs	r1, #32
- 80003c0:	4805      	ldr	r0, [pc, #20]	; (80003d8 <main+0x84>)
- 80003c2:	f7ff ff8d 	bl	80002e0 <GPIO_SetBits>
- 80003c6:	e003      	b.n	80003d0 <main+0x7c>
+ 80003c2:	2120      	movs	r1, #32
+ 80003c4:	4804      	ldr	r0, [pc, #16]	; (80003d8 <main+0x84>)
+ 80003c6:	f7ff ff8b 	bl	80002e0 <GPIO_SetBits>
+ 80003ca:	e7f0      	b.n	80003ae <main+0x5a>
     	}else{
     	    GPIO_ResetBits(GPIOA,GPIO_Pin_5);
- 80003c8:	2120      	movs	r1, #32
- 80003ca:	4803      	ldr	r0, [pc, #12]	; (80003d8 <main+0x84>)
- 80003cc:	f7ff ff96 	bl	80002fc <GPIO_ResetBits>
+ 80003cc:	2120      	movs	r1, #32
+ 80003ce:	4802      	ldr	r0, [pc, #8]	; (80003d8 <main+0x84>)
+ 80003d0:	f7ff ff94 	bl	80002fc <GPIO_ResetBits>
     	}
-    	button++;
- 80003d0:	68fb      	ldr	r3, [r7, #12]
- 80003d2:	3301      	adds	r3, #1
- 80003d4:	60fb      	str	r3, [r7, #12]
-
     }
- 80003d6:	e7e8      	b.n	80003aa <main+0x56>
+ 80003d4:	e7eb      	b.n	80003ae <main+0x5a>
+ 80003d6:	bf00      	nop
  80003d8:	40020000 	.word	0x40020000
  80003dc:	40020800 	.word	0x40020800
 
