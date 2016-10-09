@@ -3,6 +3,9 @@
 
 int main(void)
 {
+
+	int button,counter;
+
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 
 	GPIO_InitTypeDef gpioInitStruct;
@@ -27,6 +30,27 @@ int main(void)
     while (1)
     {
     	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+
+    	if(buttonState == 0){
+    	    counter=0;
+    	    button=0;
+    	    while(1){
+    	    	if(buttonState == 1){
+    	    		while(1){
+    	    			if(counter>1000){
+    	    				if(buttonState == 0){
+    	    					GPIO_ToggleBits(GPIOA,GPIO_Pin_5);
+    	    					button=1;
+    	    					break;
+    	    				}
+    	    			}
+    	    			counter++;
+    	    		}
+    	    		if(button == 1)
+    	    			break;
+    	    	}
+    	    }
+    	}
 
     }
     return 0;
