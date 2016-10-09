@@ -7,16 +7,15 @@ int main(void)
 	int button,counter;
 
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
 	GPIO_InitTypeDef gpioInitStruct;
 	gpioInitStruct.GPIO_Mode=GPIO_Mode_OUT;
 	gpioInitStruct.GPIO_OType=GPIO_OType_PP;
 	gpioInitStruct.GPIO_Pin=GPIO_Pin_5;
-	gpioInitStruct.GPIO_Speed=GPIO_Speed_40MHz;
+	gpioInitStruct.GPIO_Speed=GPIO_Speed_400KHz;
 
 	GPIO_Init(GPIOA, &gpioInitStruct);
-
-	GPIO_SetBits(GPIOA,GPIO_Pin_5);
 
 	gpioInitStruct.GPIO_Mode=GPIO_Mode_IN;
 	gpioInitStruct.GPIO_PuPd=GPIO_PuPd_UP;
@@ -31,14 +30,16 @@ int main(void)
     {
     	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
 
-    	if(buttonState == 0){
+    	if(buttonState == 1){
     	    counter=0;
     	    button=0;
     	    while(1){
-    	    	if(buttonState == 1){
+    	    	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+    	    	if(buttonState == 0){
     	    		while(1){
-    	    			if(counter>1000){
-    	    				if(buttonState == 0){
+    	    			if(counter>100){
+    	    				buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
+    	    				if(buttonState == 1){
     	    					GPIO_ToggleBits(GPIOA,GPIO_Pin_5);
     	    					button=1;
     	    					break;
