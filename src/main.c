@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include "stm32l1xx.h"
 
+void delay(unsigned int time);
+
 int main(void)
 {
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
@@ -28,8 +30,16 @@ int main(void)
     {
     	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
 
+    	GPIO_SetBits(GPIOA,GPIO_Pin_5);
+    	delay(700000);
+    	GPIO_ResetBits(GPIOA,GPIO_Pin_5);
+    	delay(700000);
     }
     return 0;
+}
+
+void delay(unsigned int time) {
+	for (time; time > 0; time--);
 }
 
 #ifdef  USE_FULL_ASSERT
