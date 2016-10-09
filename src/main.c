@@ -13,8 +13,6 @@ int main(void)
 
 	GPIO_Init(GPIOA, &gpioInitStruct);
 
-	GPIO_SetBits(GPIOA,GPIO_Pin_5);
-
 	gpioInitStruct.GPIO_Mode=GPIO_Mode_IN;
 	gpioInitStruct.GPIO_PuPd=GPIO_PuPd_UP;
 	gpioInitStruct.GPIO_Pin=GPIO_Pin_13;
@@ -28,6 +26,11 @@ int main(void)
     {
     	buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
 
+    	if(buttonState==1){
+    	    GPIO_SetBits(GPIOA,GPIO_Pin_5);
+    	}else{
+    	    GPIO_ResetBits(GPIOA,GPIO_Pin_5);
+    	}
     }
     return 0;
 }
